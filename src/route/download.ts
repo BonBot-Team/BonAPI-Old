@@ -1,4 +1,5 @@
 import * as express from "express";
+import { PassThrough } from "stream";
 import GeneratorManager from "../generator/manager";
 import IGenerator from "../generator/generator";
 import ColorMiddleware from "../middleware/color";
@@ -33,8 +34,14 @@ export default function (genMgr: GeneratorManager) {
 
             gen.generate(name, colors)
                 .then(function (buffer: Buffer) {
+                    let stream: PassThrough = new PassThrough();
+                    
+                    stream.end(buffer);
+                    
+                    res.set("Content-disposition", "attachment; filename=bon_" + name.toLowerCase().replace(" ", "_") + ".png");
                     res.contentType("image/png");
-                    res.status(200).send(buffer).end();
+                    
+                    stream.pipe(res);
                 })
                 .catch(function (ex) {
                     res.status(503).json({

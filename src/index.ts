@@ -5,6 +5,7 @@ import ColorUtils from "./utils/color";
 
 // Routes
 import CreateRoute from "./route/create";
+import DownloadRoute from "./route/download";
 
 class App {
     
@@ -23,6 +24,7 @@ class App {
         this.getApp().use(bp.json());
         this.getApp().use(bp.urlencoded({ extended: true }));
         this.getApp().use("/create", CreateRoute(genMgr));
+        this.getApp().use("/download", DownloadRoute(genMgr));
     }
     
     public run() : void {
