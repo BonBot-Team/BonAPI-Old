@@ -1,12 +1,12 @@
 import * as express from "express";
 import GeneratorManager from "../generator/manager";
 import IGenerator from "../generator/generator";
-//import ColorMiddleware from "../middleware/color";
+import ColorMiddleware from "../middleware/color";
 
 export default function (genMgr: GeneratorManager) {
     let router: express.Router = express.Router();
 
-    router.get("/:generator", function (req: express.Request, res: express.Response) {
+    router.get("/:generator", ColorMiddleware, function (req: express.Request, res: express.Response) {
         try {
             let query = req.query;
             let name: string = < string > query.name;
@@ -15,7 +15,7 @@ export default function (genMgr: GeneratorManager) {
             let gen: IGenerator | undefined = genMgr.getGenerator(req.params.generator);
 
             if (!gen) {
-                res.status(200).json({
+                res.status(503).json({
                     error: "Generator not found."
                 }).end();
 
@@ -34,16 +34,16 @@ export default function (genMgr: GeneratorManager) {
             gen.generate(name, colors)
                 .then(function (buffer: Buffer) {
                     res.contentType("image/png");
-                    res.send(buffer).end();
+                    res.status(200).send(buffer).end();
                 })
                 .catch(function (ex) {
-                    res.json({
+                    res.status(503).json({
                         error: ex.stack
                     }).end();
                 });
         }
         catch (ex) {
-            res.json({
+            res.status(503).json({
                 error: ex.message
             }).end();
         }

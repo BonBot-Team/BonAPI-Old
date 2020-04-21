@@ -25,8 +25,6 @@ class BonToutou implements IGenerator {
                 name = name.toUpperCase();
                 colors = ColorUtils.convert(colors);
                 
-                console.log(colors);
-                
                 let x, y: number;
                 let can: canvas.Canvas = canvas.createCanvas(256, 256);
                 let ctx: canvas.CanvasRenderingContext2D = can.getContext("2d");

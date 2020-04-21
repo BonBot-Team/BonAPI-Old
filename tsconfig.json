@@ -8,6 +8,6 @@
     "outDir": "./dist",
     "baseUrl": "./src"
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "src/assets/*"],
   "exclude": ["node_modules"]
 }
