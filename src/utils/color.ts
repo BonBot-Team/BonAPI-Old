@@ -21,7 +21,6 @@ class ColorUtils {
         let res: string[] = [];
         
         for(let color of colors){
-        console.log(this.isHex(color));
             if(this.isHex(color)){
                 let rgb = this.hexToRgb(color);
                 

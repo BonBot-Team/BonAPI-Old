@@ -74,7 +74,39 @@ class BonToutou implements IGenerator {
                     ctx.strokeText(name, x, y);
                 }
                 else {
-                    // Azy j'go dodo mdr
+                    let letters = name.split("");
+                    
+                    y = y - name.length;
+                    
+                    
+                    while(colors.length < letters.length){
+                        colors.push("#4287f5");
+                    }
+
+                    for(let i = 0 ; i < colors.length ; i++){
+                        let letter = letters[i];
+
+                        if(i === 0){
+                            x = 1;
+                        }
+                        else {
+                            if(letter === "I"){
+                                x += ctx.measureText(letter).width * 2;
+                            }
+                            else {
+                                if(letters[i - 1] === "I") {
+                                    x += ctx.measureText(letter).width / 2;
+                                } else {
+                                    x += ctx.measureText(letter).width;
+                                }
+                            }
+                        }
+                        
+                        ctx.fillStyle = colors[i];
+                        
+                        ctx.strokeText(letter, x, y);
+                        ctx.fillText(letter, x, y);
+                    }
                 }
                 
                 ctx.fill();
