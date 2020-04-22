@@ -45,7 +45,7 @@ export default function (genMgr: GeneratorManager) {
                 })
                 .catch(function (ex) {
                     res.status(503).json({
-                        error: ex.stack
+                        error: ex.message
                     }).end();
                 });
         }
