@@ -1,8 +1,8 @@
 interface IGenerator {
     
-    getName(): String;
+    getName(): string;
     
-    generate(name: string, colors: string[]): Promise<Buffer>;
+    generate(args): Promise<Buffer>;
     
 }
 

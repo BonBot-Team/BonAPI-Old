@@ -6,12 +6,9 @@ import ColorMiddleware from "../middleware/color";
 export default function (genMgr: GeneratorManager) {
     let router: express.Router = express.Router();
 
-    router.get("/:generator", ColorMiddleware, function (req: express.Request, res: express.Response) {
+    router.get("/:generator", function (req: express.Request, res: express.Response) {
         try {
             let query = req.query;
-            let name: string = < string > query.name;
-            let qColors = < string > query.colors;
-            let colors: string[];
             let gen: IGenerator | undefined = genMgr.getGenerator(req.params.generator);
 
             if (!gen) {
@@ -22,16 +19,7 @@ export default function (genMgr: GeneratorManager) {
                 return;
             }
 
-            try {
-                colors = qColors.split("|").filter(n => n !== "");
-            }
-            catch(ex) {
-                colors = ["#4287f5"];
-            }
-
-            name = name.replace("/_/g", " ");
-
-            gen.generate(name, colors)
+            gen.generate(query)
                 .then(function (buffer: Buffer) {
                     res.contentType("image/png");
                     res.status(200).send(buffer).end();

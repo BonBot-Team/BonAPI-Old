@@ -32,7 +32,7 @@ export default function (genMgr: GeneratorManager) {
 
             name = name.replace("/_/g", " ");
 
-            gen.generate(name, colors)
+            gen.generate(name)
                 .then(function (buffer: Buffer) {
                     let stream: PassThrough = new PassThrough();
                     

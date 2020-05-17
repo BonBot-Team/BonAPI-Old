@@ -15,14 +15,34 @@ canvas.registerFont(font, {
 
 class BonToutou implements IGenerator {
     
-    public getName(): String {
+    public getName(): string {
         return "bontoutou";
     }
     
-    public generate(name: string, colors: string[]): Promise<Buffer> {
+    public generate(args): Promise<Buffer> {
         return new Promise(async function(resolve, reject){
             try {
+                let name: string = < string > args.name;
+                let qColors: string = < string > args.colors;
+                let colors: string[];
+                
+                if(!name){
+                    reject(new Error("Please specify name parameter"));
+                }
+                else if(name.length > 12){
+                    reject(new Error("Name parameter must be no more than 12 characters"));
+                }
+                
+                try {
+                    colors = qColors.split("|").filter(n => n !== "");
+                }
+                catch(ex) {
+                    colors = ["#4287f5"];
+                }
+                
+                name = name.replace(/_/g, " ");
                 name = name.toUpperCase();
+                
                 colors = ColorUtils.convert(colors);
                 
                 let x, y: number;
@@ -54,7 +74,6 @@ class BonToutou implements IGenerator {
                 ctx.strokeStyle = "black";
                 ctx.lineWidth = 3;
                 ctx.textBaseline = "middle";
-                
                 
                 x = 1;
                 y = (can.height / 1.10) - name.length;
