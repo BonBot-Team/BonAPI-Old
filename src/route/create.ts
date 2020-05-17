@@ -1,7 +1,6 @@
 import * as express from "express";
 import GeneratorManager from "../generator/manager";
 import IGenerator from "../generator/generator";
-import ColorMiddleware from "../middleware/color";
 
 export default function (genMgr: GeneratorManager) {
     let router: express.Router = express.Router();

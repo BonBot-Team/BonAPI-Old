@@ -2,12 +2,11 @@ import * as express from "express";
 import { PassThrough } from "stream";
 import GeneratorManager from "../generator/manager";
 import IGenerator from "../generator/generator";
-import ColorMiddleware from "../middleware/color";
 
 export default function (genMgr: GeneratorManager) {
     let router: express.Router = express.Router();
 
-    router.get("/:generator", ColorMiddleware, function (req: express.Request, res: express.Response) {
+    router.get("/:generator", function (req: express.Request, res: express.Response) {
         try {
             let query = req.query;
             let gen: IGenerator | undefined = genMgr.getGenerator(req.params.generator);
