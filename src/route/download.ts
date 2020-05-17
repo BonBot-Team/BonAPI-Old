@@ -10,9 +10,6 @@ export default function (genMgr: GeneratorManager) {
     router.get("/:generator", ColorMiddleware, function (req: express.Request, res: express.Response) {
         try {
             let query = req.query;
-            let name: string = < string > query.name;
-            let qColors = < string > query.colors;
-            let colors: string[];
             let gen: IGenerator | undefined = genMgr.getGenerator(req.params.generator);
 
             if (!gen) {
@@ -23,17 +20,9 @@ export default function (genMgr: GeneratorManager) {
                 return;
             }
 
-            try {
-                colors = qColors.split("|").filter(n => n !== "");
-            }
-            catch(ex) {
-                colors = ["#4287f5"];
-            }
-
-            name = name.replace("/_/g", " ");
-
-            gen.generate(name)
+            gen.generate(query)
                 .then(function (buffer: Buffer) {
+                    let name: string = < string > query.name;
                     let stream: PassThrough = new PassThrough();
                     
                     stream.end(buffer);
