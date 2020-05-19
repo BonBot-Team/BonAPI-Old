@@ -2,10 +2,11 @@
   "name": "bonbot-api",
   "version": "1.0.0",
   "description": "The API used by BonBot to generate memes.",
-  "main": "dist/src/index.js",
+  "main": "dist/index.js",
   "dependencies": {
     "body-parser": "^1.19.0",
     "canvas": "^2.6.1",
+    "ejs": "^3.1.3",
     "express": "^4.17.1",
     "is-color": "^1.0.2"
   },
@@ -16,7 +17,8 @@
     "typescript": "^3.8.3"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "tsc -p tsconfig.json && npm run copy",
+    "copy": "node scripts/copy.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -30,7 +32,7 @@
     "bontoutou"
   ],
   "author": "Seyz",
-  "license": "Apache-2.0",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/bonBot-Team/api/issues"
   },
