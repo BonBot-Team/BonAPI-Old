@@ -1,4 +1,4 @@
-# API
+# BonAPI
 
 The old API used by BonBot to generate memes.
 
